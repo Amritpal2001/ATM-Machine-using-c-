@@ -2,6 +2,19 @@
 #include "database_funs.h"
 #include <cstdlib>
 
+void main_menu();
+void add_new_user();
+
+
+int main()
+{
+    //add_new_user();
+    main_menu();
+    getchar();
+    return 0;
+}
+
+
 void main_menu()
 {
     Customer c;
@@ -72,7 +85,7 @@ void main_menu()
             getchar();
             break;
         case 8:
-            return;
+            return ;
             break;
 
         default:
@@ -83,10 +96,29 @@ void main_menu()
             break;
         }
     }
+
+
 }
-int main()
+
+void add_new_user()
 {
-    main_menu();
-    getchar();
-    return 0;
+
+    string a,b,c,d,e,f,g;
+    cout<<"Enter Account number"<<endl;
+    cin>>a;
+    cout<<"Enter PIN"<<endl;
+    cin>>b;
+    cout<<"Enter name"<<endl;
+    cin>>c;
+    cout<<"Enter balance"<<endl;
+    cin>>d;
+    cout<<"Enter mobile number"<<endl;
+    cin>>e;
+    cout<<"Enter email"<<endl;
+    cin>>f;
+    cout<<"Enter status"<<endl;
+    cin>>g;
+    addrecord(a,b,c,d,e,f,g);
+
+
 }

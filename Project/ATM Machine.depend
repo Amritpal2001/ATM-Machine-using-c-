@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1602379173 source:c:\users\vik\desktop\amrit\atm machine\main.cpp
+1602435312 source:c:\users\vik\desktop\amrit\atm machine\main.cpp
 	"Customer.h"
 	"database_funs.h"
 	<cstdlib>
@@ -393,7 +393,7 @@
 
 1602368464 source:c:\users\vik\desktop\amrit\atm machine\customer.cpp
 
-1602378750 c:\users\vik\desktop\amrit\atm machine\customer.h
+1602435982 c:\users\vik\desktop\amrit\atm machine\customer.h
 	<iostream>
 	<iomanip>
 	<fstream>

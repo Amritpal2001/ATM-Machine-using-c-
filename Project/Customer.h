@@ -49,20 +49,40 @@ void Customer::validate_user()
     string account_no, pin;
     while (true)
     {
-        cout << "Enter your correct account_no" << endl;
+        cout << "Enter your correct account_no (make sure you have active internet connection)"<< endl;
         cin >> account_no;
         user_data = search(account_no);// searches the database for that account number..the function is defined in database_funs.h
         if (user_data.size() == 7)// as there are 7 columns in database
-            break;
+        {
+            if((user_data["status"] == "blocked") || (user_data["status"] == "Blocked"))
+            {
+                cout<<"Your account is blocked"<<endl;
+                exit(-1);
+            }
+
+            else
+                break;
+        }
     }
+    int flag = 5;
     // Validating PIN
     cout << "Enter PIN" << endl;
     cin >> pin;
-    
+    flag--;
+
     while (user_data["PIN"] != pin)
     {
-        cout << "Enter correct PIN" << endl;
+        if(flag==0)
+        {
+            cout<<"Too many wrong attempts"<<endl;
+            cout<<"Your account has been blocked"<<endl;
+            user_data["status"] = "Blocked";
+            updaterecord(user_data);
+            exit(-1);
+        }
+        cout << "Enter correct PIN "<<flag <<" attempts remaining" << endl;
         cin >> pin;
+        flag--;
     }
 }
 
