@@ -8,6 +8,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <ctime>
 #include "database_funs.h"
 
 using namespace std;
@@ -16,18 +17,21 @@ class Customer
 {
     //map for storing user data
     map<string, string> user_data;
+    map<string , string> details;
 
 public:
     Customer();
     //function to validate user when user logs in
-    void validate_user();
-    void get_balance();
-    void deposit();
-    void withdraw();
-    void pin_change();
-    void email_change();
-    void mobile_number_change();
-    void show_user_infomation();
+    int validate_user(string account_no , string pin);
+    string get_balance();
+    string get_acc_num();
+    int deposit(int amt);
+    int withdraw(int amt);
+    void pin_change(string);
+    void email_change(string);
+    void mobile_number_change(string);
+    int transfer_bal(string acc_no , int amt);
+    map<string , string> show_user_infomation();
     ~Customer();
 };
 
@@ -41,141 +45,120 @@ Customer::Customer()
     cout << "\t\t\t\t    =========================================\n\n"
          << endl;
 
-    validate_user();
 }
 
-void Customer::validate_user()
+int Customer::validate_user(string account_no , string pin)
 {
-    string account_no, pin;
-    while (true)
-    {
-        cout << "Enter your correct account_no (make sure you have active internet connection)"<< endl;
-        cin >> account_no;
         user_data = search(account_no);// searches the database for that account number..the function is defined in database_funs.h
         if (user_data.size() == 7)// as there are 7 columns in database
         {
             if((user_data["status"] == "blocked") || (user_data["status"] == "Blocked"))
             {
                 cout<<"Your account is blocked"<<endl;
-                exit(-1);
+                return 1;
             }
-
+            else if(pin!= user_data["PIN"] )
+                return 2;
             else
-                break;
+                return 4;
         }
-    }
-    int flag = 5;
-    // Validating PIN
-    cout << "Enter PIN" << endl;
-    cin >> pin;
-    flag--;
+        else
+            return 0;
 
-    while (user_data["PIN"] != pin)
-    {
-        if(flag==0)
-        {
-            cout<<"Too many wrong attempts"<<endl;
-            cout<<"Your account has been blocked"<<endl;
-            user_data["status"] = "Blocked";
-            updaterecord(user_data);
-            exit(-1);
-        }
-        cout << "Enter correct PIN "<<flag <<" attempts remaining" << endl;
-        cin >> pin;
-        flag--;
-    }
+
 }
 
-void Customer::get_balance()
+string Customer::get_balance()
 {
-    cout << user_data["balance"] << endl;
+    return user_data["balance"];
 }
 
-void Customer::show_user_infomation()
+string Customer::get_acc_num()
 {
-    cout << "Account Number : " << user_data["acc_no"] << endl;
-    cout << "Name : " << user_data["name"] << endl;
-    cout << "Balance : " << user_data["balance"] << endl;
-    cout << "Mobile_Number : " << user_data["mobile_number"] << endl;
-    cout << "Email : " << user_data["email"] << endl;
+    return user_data["acc_no"];
+}
+map<string , string> Customer::show_user_infomation()
+{
+
+    details["acc_no"] = user_data["acc_no"];
+    details["name"] = user_data["name"];
+    details["balance"] = user_data["balance"];
+    details["mobile_number"] = user_data["mobile_number"];
+    details["email"] = user_data["email"];
+    return details;
 }
 
-void Customer::deposit()
+int Customer::deposit(int amt)
 {
-    float amt;
-    cout << "Enter amount to be deposited : " << endl;
-    cin >> amt;
-    while (amt <= 0 && amt > 20000)
-    {
-        cout << "You can only deposit amout between Rs. 1 and Rs. 20000" << endl;
-        cout << "Enter correct amount" << endl;
-        cin >> amt;
-    }
     //used stoi function to convert string to int
     int curr = stoi(user_data["balance"]);
     curr += amt;
-    user_data["balance"] = to_string(curr);
-    cout << "Success!!" << endl;
+    string c = to_string(amt);
+    user_data["balance"] = to_string(curr) ;
+    time_t now = time(0);
+
+    // convert now to string form
+    char* date_time = ctime(&now);
+    add_trans_stat(user_data["acc_no"] , "Deposit" , c , date_time );
+    return 0;
 }
 
-void Customer::withdraw()
+int Customer::withdraw(int amt)
 {
-    float amt;
-    cout << "Enter amount to be withdrawn : " << endl;
-    cin >> amt;
-    while (stof(user_data["balance"]) < amt)
-    {
-        cout << "You don't have sufficient funds " << endl;
-        cout << "Enter correct amount" << endl;
-        cin >> amt;
-    }
+    if (stof(user_data["balance"]) < amt)
+        return 1;
+
     int curr = stoi(user_data["balance"]);
     curr -= amt;
     user_data["balance"] = to_string(curr);
-    cout << "Success!!" << endl;
+
+    time_t now = time(0);
+    char* date_time = ctime(&now);
+    add_trans_stat(user_data["acc_no"] , "Withdraw" ,  to_string(amt) , date_time );
+    return 0;
 }
 
-void Customer::pin_change()
+void Customer::pin_change(string pin)
 {
-    string pin;
-    cout << "Enter your previous pin : " << endl;
-    cin >> pin;
-    while (user_data["PIN"] != pin)
-    {
-        cout << "Incorrect PIN " << endl;
-        cout << "Enter correct PIN" << endl;
-        cin >> pin;
-    }
-    cout << "Enter new PIN" << endl;
-    cin >> pin;
 
     user_data["PIN"] = pin;
-    cout << "PIN changed Successfully!!" << endl;
+    time_t now = time(0);
+    char* date_time = ctime(&now);
+    add_trans_stat(user_data["acc_no"] , "PIN Change" ,  "" , date_time );
 }
 
-void Customer::email_change()
+void Customer::email_change(string email)
 {
-    string email;
-    cout << "Enter new email : " << endl;
-    cin >> email;
 
     user_data["email"] = email;
-    cout << "email changed Successfully!!" << endl;
+    time_t now = time(0);
+    char* date_time = ctime(&now);
+    add_trans_stat(user_data["acc_no"] , "Email Change" ,  "" , date_time );
 }
 
-void Customer::mobile_number_change()
+void Customer::mobile_number_change(string new_)
 {
-    string mn;
-    cout << "Enter new mobile number : " << endl;
-    cin >> mn;
-    while (mn.length() != 10)
+    user_data["mobile_number"] = new_;
+    time_t now = time(0);
+    char* date_time = ctime(&now);
+    add_trans_stat(user_data["acc_no"] , "Mobile Number Change" ,  "" , date_time );
+}
+int Customer::transfer_bal(string acc_no , int amt)
+{
+    int bal = stoi(user_data["balance"]);
+    if(bal<amt)
+        return 1;
+    int x = balance_transfer(acc_no , amt);
+    if(x==0)
     {
-        cout << "Incorrect Number (must be of 10 digits) " << endl;
-        cout << "Enter correct mobile number" << endl;
-        cin >> mn;
+        string a = to_string(amt);
+        bal-=amt;
+        user_data["balance"] = to_string(bal);
+        time_t now = time(0);
+        char* date_time = ctime(&now);
+        add_trans_stat(user_data["acc_no"] , "Balance_Transfer" , a , date_time );
     }
-    user_data["mobile_number"] = mn;
-    cout << "Mobile Number changed Successfully!!" << endl;
+    return x;
 }
 
 Customer ::~Customer()

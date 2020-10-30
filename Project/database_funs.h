@@ -7,12 +7,21 @@
 #include <windows.h>
 #include <sstream>
 #include <map>
-
+#include <QString>
+#include <QList>
+#include<ctime>
 using namespace std;
 
 //function to add new record in databse
-void addrecord(string acc_no, string PIN, string name, string balance, string mobile_number, string email, string status)
+void addrecord()
 {
+    string acc_no = "12345";
+    string PIN = "1234";
+    string name = "Amritpal";
+    string balance = "3456";
+    string mobile_number = "8764";
+    string email = "dwjfbdf";
+    string status = "sdnk";
     MYSQL *conn;
     conn = mysql_init(0);
     conn = mysql_real_connect(conn, "remotemysql.com", "mH2kQ9m8IW", "tXfgICQA3d", "mH2kQ9m8IW", 3306, NULL, 0);
@@ -107,7 +116,7 @@ void add_trans_stat(string acc_no, string user_action, string amount, string dat
     int qstate;
     stringstream ss;
 
-    ss << "INSERT INTO ATM_users (acc_num , user_action , amount , date_time ) VALUES('" << acc_no << "' , '" << user_action << "' , '" << amount << "' , '" << date_time << "')";
+    ss << "INSERT INTO ATM_users_trans_stat (acc_num , user_action , amount , date_time ) VALUES('" << acc_no << "' , '" << user_action << "' , '" << amount << "' , '" << date_time << "')";
     string query = ss.str();
     const char *q = query.c_str();
     qstate = mysql_query(conn, q);
@@ -120,8 +129,10 @@ void add_trans_stat(string acc_no, string user_action, string amount, string dat
 }
 
 //function to view previous transactions of particular user(will implement in next module)
-void previous_trans(string acc_no)
+void previous_trans(string acc_no ,QList<QString> & action , QList<QString> & amount ,QList<QString>& date_time)
 {
+
+
     string dummy;
     MYSQL *conn;
     MYSQL_ROW row;
@@ -132,19 +143,18 @@ void previous_trans(string acc_no)
     if (conn)
     {
         stringstream ss;
-        ss << "SELECT * from ATM_users where acc_num =  '" << acc_no << "'";
+        ss << "SELECT * from ATM_users_trans_stat where acc_num =  '" << acc_no << "'";
         string query = ss.str();
         const char *q = query.c_str();
         int qstate = mysql_query(conn, q);
         if (!qstate)
         {
             res = mysql_store_result(conn);
-            cout << "Account number : " << acc_no;
             while (row = mysql_fetch_row(res))
             {
-                cout << "Action : " << row[1];
-                cout << "Amount : " << row[2];
-                cout << "Date and Time : " << row[3];
+                action.append(row[1]);
+                amount.append(row[2]);
+                date_time.append(row[3]);
             }
         }
         else
@@ -158,4 +168,23 @@ void previous_trans(string acc_no)
     mysql_close(conn);
 }
 
+int balance_transfer(string acc_no , int amt)
+{
+    map<string, string> data = search(acc_no);
+    if (data.size() == 7)
+    {
+        int bal = stoi(data["balance"]) + amt;
+        data["balance"] = to_string(bal);
+        string b = to_string(bal);
+        updaterecord(data);
+        time_t now = time(0);
+        char* date_time = ctime(&now);
+
+        //add_trans_stat(acc_no , "Balance Transfer" , b, date_time ) ;
+        return 0;
+    }
+    else
+        return 1;
+
+}
 #endif
