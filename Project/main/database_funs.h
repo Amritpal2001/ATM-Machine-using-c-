@@ -12,28 +12,6 @@
 #include<ctime>
 using namespace std;
 
-//function to add new record in databse
-void addrecord(string acc_no ,string PIN ,string name, string balance ,string mobile_number,string email, string status  )
-{
-    MYSQL *conn;
-    conn = mysql_init(0);
-    conn = mysql_real_connect(conn, "remotemysql.com", "mH2kQ9m8IW", "tXfgICQA3d", "mH2kQ9m8IW", 3306, NULL, 0);
-
-    int qstate;
-    stringstream ss;
-
-    ss << "INSERT INTO ATM_users (acc_num , PIN , name , balance , Mobile_number , email , status ) VALUES('" << acc_no << "' , '" << PIN << "' , '" << name << "' , '" << balance << "' , '" << mobile_number << "' , '" << email << "' , '" << status << "')";
-    string query = ss.str();
-    const char *q = query.c_str();
-    qstate = mysql_query(conn, q);
-    if (qstate == 0)
-        cout << "Record Inserted" << endl;
-    else
-        cout << "failed" << endl;
-
-    mysql_close(conn);
-}
-
 //updates the user record when user logs out
 void updaterecord(map<string, string> user)
 {
@@ -122,9 +100,8 @@ void add_trans_stat(string acc_no, string user_action, string amount, string dat
 }
 
 //function to view previous transactions of particular user(will implement in next module)
-string previous_trans(string acc_no ,QList<QString> & action , QList<QString> & amount ,QList<QString>& date_time)
+void previous_trans(string acc_no ,QList<QString> & action , QList<QString> & amount ,QList<QString>& date_time)
 {
-    string s;
     string dummy;
     MYSQL *conn;
     MYSQL_ROW row;
@@ -147,9 +124,7 @@ string previous_trans(string acc_no ,QList<QString> & action , QList<QString> & 
                 action.append(row[1]);
                 amount.append(row[2]);
                 date_time.append(row[3]);
-                s=row[1];
             }
-            return s;
         }
         else
         {
@@ -162,48 +137,7 @@ string previous_trans(string acc_no ,QList<QString> & action , QList<QString> & 
     mysql_close(conn);
 }
 
-string email_checkbook(string acc_no)
-{
-    string s="<html>";
-    MYSQL *conn;
-    MYSQL_ROW row;
-    MYSQL_RES *res;
-    conn = mysql_init(0);
-    conn = mysql_real_connect(conn, "remotemysql.com", "mH2kQ9m8IW", "tXfgICQA3d", "mH2kQ9m8IW", 3306, NULL, 0);
-    map<string, string> user;
-    if (conn)
-    {
-        stringstream ss;
-        ss << "SELECT * from ATM_users_trans_stat where acc_num =  '" << acc_no << "'";
-        string query = ss.str();
-        const char *q = query.c_str();
-        int qstate = mysql_query(conn, q);
-        if (!qstate)
-        {
-            cout<<"challya";
-            res = mysql_store_result(conn);
-            while (row = mysql_fetch_row(res))
-            {
-                cout<<row[1]<<endl;
-                s+=row[1];
-                s+=row[2];
-                s+=row[3];
-                s+="\n";
-                cout<<s<<endl;
-            }
-            s+="</html>";
-            return "$Body = \"" +s+ "\"\n";
-        }
-        else
-        {
-            cout << "Error fetching data" << endl;
-        }
-    }
-    else
-        cout << "Error fetching data" << endl;
 
-    mysql_close(conn);
-}
 
 int balance_transfer(string acc_no , int amt)
 {
@@ -217,7 +151,7 @@ int balance_transfer(string acc_no , int amt)
         time_t now = time(0);
         char* date_time = ctime(&now);
 
-        //add_trans_stat(acc_no , "Balance Transfer" , b, date_time ) ;
+        add_trans_stat(acc_no , "Balance Transfer" , b, date_time ) ;
         return 0;
     }
     else

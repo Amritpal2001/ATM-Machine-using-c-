@@ -20,7 +20,6 @@ class Customer
     map<string , string> details;
 
 public:
-    Customer();
     //function to validate user when user logs in
     int validate_user(string account_no , string pin);
     string get_balance();
@@ -35,17 +34,7 @@ public:
     ~Customer();
 };
 
-Customer::Customer()
-{
 
-    cout << "\n\t\t\t\t    =========================================" << endl;
-    cout << "\t\t\t\t    =========================================" << endl;
-    cout << "\t\t\t\t          ||   WELCOME TO SBI ATM   ||" << endl;
-    cout << "\t\t\t\t    =========================================" << endl;
-    cout << "\t\t\t\t    =========================================\n\n"
-         << endl;
-
-}
 
 int Customer::validate_user(string account_no , string pin)
 {
