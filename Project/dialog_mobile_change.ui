@@ -13,7 +13,29 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <property name="styleSheet">
+   <string notr="true">QLineEdit {
+background:transparent;
+border:none;
+color:#717072;
+border-bottom:1px solid #717072
+}
+QLineEdit::hover{
+border-bottom:3px solid black
+}
+#pushButton{
+background:#4ee44e;
+border-radius:60px;
+
+}
+
+#pushButton::hover{
+background:green;
+border-radius:60px;
+
+}</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -27,6 +49,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
         <property name="text">
          <string>Enter new Mobile Number</string>
         </property>

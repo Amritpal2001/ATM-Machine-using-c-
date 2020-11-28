@@ -2,7 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <iostream>
+#include <fstream>
 #include "Customer.h"
+#include "ui_dialog.h"
 #include "ui_dialog_deposit.h"
 #include "ui_dialog_withdraw.h"
 #include "ui_dialog_details.h"
@@ -34,7 +36,32 @@ MainWindow::~MainWindow()
     delete ui;
 }
 Customer c;
+map<string , string> details = c.show_user_infomation();
 
+void mail(string s)
+{
+    cout<<"Emailing...";
+    ofstream file;
+       file.open("test.ps1");
+       string newArg = "-auto";
+       string powershell;
+       powershell = "$EmailFrom = \"environmentseekersnitj@gmail.com\"\n";
+       powershell +="$EmailTo = \"" +details["email"]+ "\"\n";
+        powershell +="$Subject = \"The subject of your email\"\n";
+         powershell +="$Body = \"" +s+ "\"\n";
+          powershell +="$SMTPServer = \"smtp.gmail.com\"\n";
+           powershell +="$SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587)\n";
+            powershell +="$SMTPClient.EnableSsl = $true\n";
+             powershell +="$SMTPClient.Credentials = New-Object System.Net.NetworkCredential(\"environmentseekersnitj@gmail.com\", \"fdgphlhigarggaoy\");\n";
+             powershell +="$SMTPClient.Send($EmailFrom, $EmailTo, $Subject, $Body)\n";
+             file << powershell << endl;
+       file.close();
+
+       system("powershell -ExecutionPolicy Bypass -F test.ps1");
+
+       remove("test.ps1");
+
+}
 
 void MainWindow::on_pushButton_login_clicked()
 {
@@ -47,8 +74,13 @@ void MainWindow::on_pushButton_login_clicked()
     {
         previous_trans(c.get_acc_num() , action , amount , date_time);
         hide();
-        secdialog = new Dialog(this);
+        Dialog *secdialog = new Dialog(this);
+        map<string , string> details = c.show_user_infomation();
         secdialog->show();
+        secdialog->ui->label_name->setText(details["name"].c_str());
+        secdialog->ui->label_mobile_number->setText(details["mobile_number"].c_str());
+        secdialog->ui->label_email->setText(details["email"].c_str());
+        secdialog->ui->label_balance->setText(details["balance"].c_str());
     }
     else
     {
@@ -59,6 +91,7 @@ void MainWindow::on_pushButton_login_clicked()
 //balance
 void Dialog::on_pushButton_clicked()
 {
+
     string s = c.get_balance();
     char c [s.length()+1];
     strcpy(c, s.c_str());
@@ -75,7 +108,23 @@ void Dialog_deposit::on_pushButton_clicked()
 {
     QString amt = ui->lineEdit_amt_deposit->text();
     c.deposit(stoi(amt.toStdString()));
+    QMessageBox::information(this , "Success" , "Transaction Successful");
+    QMessageBox::StandardButton reply;
+      reply = QMessageBox::question(this, "E-receipt", "Do you want to email the receipt?",
+                                    QMessageBox::Yes|QMessageBox::No);
+      if (reply == QMessageBox::Yes) {
+       mail("Amount of rupees "+amt.toStdString()+ " was credited to your account number" );
+      } else {
+        cout<< "Yes was *not* clicked";
+      }
     hide();
+    Dialog *secdialog = new Dialog(this);
+    map<string , string> details = c.show_user_infomation();
+    secdialog->show();
+    secdialog->ui->label_name->setText(details["name"].c_str());
+    secdialog->ui->label_mobile_number->setText(details["mobile_number"].c_str());
+    secdialog->ui->label_email->setText(details["email"].c_str());
+    secdialog->ui->label_balance->setText(details["balance"].c_str());
 }
 
 //withdraw
@@ -91,7 +140,22 @@ void Dialog_withdraw::on_pushButton_withdraw_clicked()
      if(x==0)
      {
          QMessageBox::information(this , "Success" , "Transaction Successful");
+         QMessageBox::StandardButton reply;
+           reply = QMessageBox::question(this, "E-receipt", "Do you want to email the receipt?",
+                                         QMessageBox::Yes|QMessageBox::No);
+           if (reply == QMessageBox::Yes) {
+            mail("A transaction of rupees "+amt.toStdString()+ " was done from your account number" );
+           } else {
+             cout<< "Yes was *not* clicked";
+           }
          hide();
+         Dialog *secdialog = new Dialog(this);
+         map<string , string> details = c.show_user_infomation();
+         secdialog->show();
+         secdialog->ui->label_name->setText(details["name"].c_str());
+         secdialog->ui->label_mobile_number->setText(details["mobile_number"].c_str());
+         secdialog->ui->label_email->setText(details["email"].c_str());
+         secdialog->ui->label_balance->setText(details["balance"].c_str());
      }
      else
        QMessageBox::warning(this , "Failure" , "Not enough Balance");
@@ -168,7 +232,13 @@ void Dialog_transfer::on_pushButton_transfer_clicked()
     if(x==0)
     {
         QMessageBox::information(this , "Success" , "Balance Trannsferred successfully");
-        hide();
+        hide();Dialog *secdialog = new Dialog(this);
+        map<string , string> details = c.show_user_infomation();
+        secdialog->show();
+        secdialog->ui->label_name->setText(details["name"].c_str());
+        secdialog->ui->label_mobile_number->setText(details["mobile_number"].c_str());
+        secdialog->ui->label_email->setText(details["email"].c_str());
+        secdialog->ui->label_balance->setText(details["balance"].c_str());
     }
     else
     {
@@ -189,7 +259,15 @@ void Dialog_mobile_change::on_pushButton_mobile_change_clicked()
     QString new_ = ui->lineEdit_mobile_change->text();
     c.mobile_number_change(new_.toStdString());
     hide();
+    Dialog *secdialog = new Dialog(this);
+    map<string , string> details = c.show_user_infomation();
+    secdialog->show();
+    secdialog->ui->label_name->setText(details["name"].c_str());
+    secdialog->ui->label_mobile_number->setText(details["mobile_number"].c_str());
+    secdialog->ui->label_email->setText(details["email"].c_str());
+    secdialog->ui->label_balance->setText(details["balance"].c_str());
 }
+
 
 
 
@@ -289,6 +367,11 @@ QVariant TestModel::headerData(int section, Qt::Orientation orientation, int rol
 void Dialog_pre_trans::on_pushButton_pre_trans_clicked()
 {
     hide();
+}
+void Dialog_pre_trans::on_pushButton_checkbook_email_clicked()
+{
+
+
 }
 
 

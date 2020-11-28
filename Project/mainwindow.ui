@@ -6,90 +6,197 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>728</width>
-    <height>364</height>
+    <width>819</width>
+    <height>552</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+font-size:15px;
+}
+#frame_2{
+background-image:url(&quot;:/img/B.png&quot;);
+}
+
+#frame{
+background-color:white;
+border-radius:60px;
+}
+
+#frame_3{
+background-image:url(&quot;:/img/img-01.png&quot;);
+}
+
+QLineEdit{
+background:transparent;
+border:none;
+color:#717072;
+border-bottom:1px solid #717072
+}
+QLineEdit::hover{
+border-bottom:3px solid black
+}
+#pushButton_login{
+background:#4ee44e;
+border-radius:60px;
+	font: 75 11pt &quot;MS Shell Dlg 2&quot;;
+}
+
+#pushButton_login::hover{
+background:green;
+border-radius:60px;
+
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Sign In</string>
+       <string/>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QFrame" name="frame">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>60</y>
-         <width>341</width>
-         <height>181</height>
+         <x>40</x>
+         <y>30</y>
+         <width>731</width>
+         <height>431</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Account Number</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_acc_no">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string> PIN                    </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_pin">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_login">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Log In</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>130</y>
+          <width>271</width>
+          <height>211</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_acc_no">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Account Number</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_pin">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>PINN</string>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_login">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>LOGIN</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>480</x>
+          <y>50</y>
+          <width>121</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+	font: 75 19pt &quot;MS Sans Serif&quot;;
+font-size:30px;
+font-weight:bold;
+</string>
+        </property>
+        <property name="text">
+         <string>LOGIN</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame_3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>70</y>
+          <width>321</width>
+          <height>311</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+       </widget>
       </widget>
+      <widget class="QFrame" name="frame_2">
+       <property name="geometry">
+        <rect>
+         <x>-10</x>
+         <y>0</y>
+         <width>831</width>
+         <height>501</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <zorder>frame_2</zorder>
+      <zorder>frame</zorder>
      </widget>
     </item>
    </layout>
@@ -99,8 +206,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>728</width>
-     <height>21</height>
+     <width>819</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

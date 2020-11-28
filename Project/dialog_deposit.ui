@@ -6,20 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>415</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <property name="styleSheet">
+   <string notr="true">QLineEdit {
+background:transparent;
+border:none;
+color:#717072;
+border-bottom:1px solid #717072
+}
+QLineEdit::hover{
+border-bottom:3px solid black
+}</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>70</x>
      <y>60</y>
-     <width>261</width>
-     <height>181</height>
+     <width>301</width>
+     <height>171</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">

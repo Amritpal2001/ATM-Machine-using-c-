@@ -6,60 +6,246 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
-    <height>533</height>
+    <width>980</width>
+    <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
+  <property name="styleSheet">
+   <string notr="true">
+#frame{
+background:rgb(26,42,160);
+border-radius:0px;
+}
+#frame_2{
+background:url(:/img/linear-pink-blue-gradient-1920x1080-c2-6495ed-ff69b4-a-165-f-14.svg)
+}
+</string>
+  </property>
+  <widget class="QFrame" name="frame_2">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>20</y>
-     <width>271</width>
-     <height>71</height>
+     <x>-10</x>
+     <y>-80</y>
+     <width>1051</width>
+     <height>831</height>
     </rect>
    </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ff0000;&quot;&gt;Select any option to proceed&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>120</y>
-     <width>471</width>
-     <height>331</height>
-    </rect>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>140</y>
+      <width>901</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>271</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;
+font: 75 25pt &quot;Futura Md BT&quot;;</string>
+     </property>
+     <property name="text">
+      <string>ATM</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>333</width>
+       <height>261</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(0, 179, 249);
+font: 75 13pt &quot;Futura Md BT&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Welcome</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_name">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(255, 255, 255);
+font: 75 17pt &quot;Futura Md BT&quot;;
+font-weight:bold;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(0, 179, 249);
+font: 75 13pt &quot;Futura Md BT&quot;;
+background:rgb(26,42,160);</string>
+        </property>
+        <property name="text">
+         <string>Balance</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_balance">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(255, 255, 255);
+font: 75 17pt &quot;Futura Md BT&quot;;
+font-weight:bold;
+background:rgb(26,42,160);</string>
+        </property>
+        <property name="text">
+         <string>Rs.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(0, 179, 249);
+font: 75 13pt &quot;Futura Md BT&quot;;</string>
+        </property>
+        <property name="text">
+         <string>E-mail</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_email">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(255, 255, 255);
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="pushButton_exit">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>480</y>
+       <width>421</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:red;
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>EXIT</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>331</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="styleSheet">
+         <string notr="true">color:rgb(0, 179, 249);
+font: 75 13pt &quot;Futura Md BT&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Mobile Number</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_mobile_number">
+        <property name="styleSheet">
+         <string notr="true">color:white;
+font: 75 16pt &quot;Futura Md BT&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>100</y>
+       <width>410</width>
+       <height>331</height>
+      </rect>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+         <widget class="QPushButton" name="pushButton_withdraw">
+          <property name="styleSheet">
+           <string notr="true">height:50px;
+background-color:rgb(0,179,249);
+color:white;
+padding-top:20px;
+padding-bottom:20px;
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
           </property>
           <property name="text">
-           <string>Check Balance</string>
+           <string>Withdraw</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_2">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+          <property name="styleSheet">
+           <string notr="true">height:50px;
+background-color:rgb(0,179,249);
+color:white;
+padding-top:20px;
+padding-bottom:20px;
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
           </property>
           <property name="text">
            <string>Deposit</string>
@@ -71,28 +257,32 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_withdraw">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+         <widget class="QPushButton" name="pushButton_mobile_change">
+          <property name="styleSheet">
+           <string notr="true">height:50px;
+background-color:rgb(0,179,249);
+color:white;
+padding-top:20px;
+padding-bottom:20px;
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
           </property>
           <property name="text">
-           <string>Withdraw</string>
+           <string>Change Mobile</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_details">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+         <widget class="QPushButton" name="pushButton_pin_change">
+          <property name="styleSheet">
+           <string notr="true">height:50px;
+background-color:rgb(0,179,249);
+color:white;
+padding-top:20px;
+padding-bottom:20px;
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
           </property>
           <property name="text">
-           <string>Get my Details</string>
+           <string>PIN Change</string>
           </property>
          </widget>
         </item>
@@ -101,42 +291,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QPushButton" name="pushButton_pin_change">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>PIN change</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_email_change">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Email Change</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
          <widget class="QPushButton" name="pushButton_transfer">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+          <property name="styleSheet">
+           <string notr="true">height:50px;
+background-color:rgb(0,179,249);
+color:white;
+padding-top:20px;
+padding-bottom:20px;
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
           </property>
           <property name="text">
            <string>Transfer Balance</string>
@@ -144,65 +306,27 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_mobile_change">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Change Mobile Number</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
          <widget class="QPushButton" name="pushButton_pre">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+          <property name="styleSheet">
+           <string notr="true">height:50px;
+background-color:rgb(0,179,249);
+color:white;
+padding-top:20px;
+padding-bottom:20px;
+font: 75 17pt &quot;Futura Md BT&quot;;</string>
           </property>
           <property name="text">
-           <string>Previous transactions</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_exit">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>EXIT</string>
+           <string>Previous Transactions</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
      </layout>
-    </item>
-   </layout>
+    </widget>
+   </widget>
   </widget>
  </widget>
- <tabstops>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton_withdraw</tabstop>
-  <tabstop>pushButton_pre</tabstop>
-  <tabstop>pushButton_details</tabstop>
-  <tabstop>pushButton_pin_change</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_email_change</tabstop>
-  <tabstop>pushButton_exit</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

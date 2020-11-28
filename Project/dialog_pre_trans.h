@@ -43,6 +43,8 @@ public:
 private slots:
     void on_pushButton_pre_trans_clicked();
 
+    void on_pushButton_checkbook_email_clicked();
+
 private:
     Ui::Dialog_pre_trans *ui;
 };

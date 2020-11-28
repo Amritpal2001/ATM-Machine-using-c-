@@ -13,7 +13,29 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <property name="styleSheet">
+   <string notr="true">QLineEdit {
+background:transparent;
+border:none;
+color:#717072;
+border-bottom:1px solid #717072
+}
+QLineEdit::hover{
+border-bottom:3px solid black
+}
+#pushButton{
+background:#4ee44e;
+border-radius:60px;
+
+}
+
+#pushButton::hover{
+background:green;
+border-radius:60px;
+
+}</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>60</x>

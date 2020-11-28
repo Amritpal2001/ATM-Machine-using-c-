@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+     Dialog * secdialog;
     ~MainWindow();
 
 private slots:
@@ -30,11 +31,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Dialog * secdialog;
+
     Dialog_deposit * deposit_dialog;
     Dialog_withdraw * withdraw_dialog;
     Dialog_details * details_dialog;
     Dialog_pin_change * pin_change_dialog;
-    //Dialog_email_change * email_change_dialog;
+    Dialog_email_change * email_change_dialog;
 };
 #endif // MAINWINDOW_H
